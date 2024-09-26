@@ -1,0 +1,66 @@
+# Car Game with Controller
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+
+public class CarGame extends JPanel implements ActionListener, KeyListener {
+    private int carX = 250;
+    private int carY = 400;
+    private Timer timer;
+
+    public CarGame() {
+        timer = new Timer(10, this);
+        timer.start();
+        setFocusable(true);
+        addKeyListener(this);
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        g.setColor(Color.RED);
+        g.fillRect(carX, carY, 50, 30);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        repaint();
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        switch (e.getKeyCode()) {
+            case KeyEvent.VK_LEFT:
+                carX -= 5;
+                break;
+            case KeyEvent.VK_RIGHT:
+                carX += 5;
+                break;
+            case KeyEvent.VK_UP:
+                carY -= 5;
+                break;
+            case KeyEvent.VK_DOWN:
+                carY += 5;
+                break;
+        }
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {}
+
+    @Override
+    public void keyTyped(KeyEvent e) {}
+
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("Car Game");
+        CarGame game = new CarGame();
+        frame.add(game);
+        frame.setSize(600, 600);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setVisible(true);
+    }
+}
